@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var work = new SharedWorker('./worker.js', 'work'),
+        worker = work.port;
+        worker.start();
+        worker.addEventListener('message', function(e){
+            console.log(e.data);
+            console.log('B')
+        })
+
+        window.sendMsg = function(val){
+            worker.postMessage({val:val});
+        } 
+
+        console.log("execute")
+   
+    </script>
+</body>
+</html>
